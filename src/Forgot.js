@@ -4,39 +4,36 @@ import {
   Button,
   TextField,
   Typography,
-  IconButton,
   Paper,
   Stack,
   useMediaQuery,
 } from "@mui/material";
-import { ArrowBack, MailOutline, LockOutlined } from "@mui/icons-material";
+import { InputAdornment } from "@mui/material";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import logo from "./image/logo.png";
 
 const Forgot = () => {
-  const [emailOrNumber, setEmailOrNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery("(max-width:900px)");
 
-  const handleContinue = () => {
-    if (!emailOrNumber) {
-      alert("Please enter your email or number!");
+  const handleSendOtp = () => {
+    if (!email) {
+      alert("Please enter your email or mobile number!");
       return;
     }
-    alert(`OTP sent to ${emailOrNumber}`);
+    alert(`OTP sent to ${email}`);
   };
 
   const handleNext = () => {
-     navigate("/reset");
+    navigate("/reset");
     if (!otp) {
-      alert("Please enter OTP!");
+      alert("Please enter the OTP!");
       return;
     }
-    alert("OTP verified!");
-  };
-
-  const handleBack = () => {
-    navigate("/"); // back to login or home
+    
   };
 
   return (
@@ -44,107 +41,146 @@ const Forgot = () => {
     <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: "#fffdd0",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(230deg, #99b562ff 0%, #d6e8c4 100%)",
+        gap: { xs: 4, md: 6 },
         p: 2,
       }}
-
     >
-               {/* Back button
-        <IconButton
-          onClick={handleBack}
-          sx={{
-            backgroundColor: "#f5f5ba",
-            mb: 1,
-            "&:hover": { backgroundColor: "#ecec9a" },
-          }}
-        >
-          <ArrowBack />
-        </IconButton> */}
-
-      <Paper
-        elevation={0}
+      {/* Left Section */}
+      <Box
         sx={{
-          backgroundColor: "#fffdd0",
-          p: 3,
-          width: isMobile ? "100%" : "400px",
-          borderRadius: 3,
-          boxShadow: "none",
+          flex: 1,
+          textAlign: { xs: "center", md: "left" },
+          maxWidth: { xs: "100%", md: "350px" },
+           mb: isMobile ? 4 : 0,
         }}
       >
-     
-
-        {/* Title */}
+         <Box
+            component="img"
+            src={logo}
+            alt="App Logo"
+            sx={{
+              width: "auto",
+              height: 120,
+              position: { xs: "static", md: "absolute" },
+              top: { md: "30px" },
+              left: { md: "30px" },
+              mb: { xs: 2, md: 0 },
+            }}
+          />
+          
         <Typography
-          variant="h5"
+          variant="h4"
           fontWeight={700}
           sx={{ color: "#444", mb: 2, lineHeight: 1.3 }}
         >
-          Forgot <br /> Password?
+          Forgot <br /> Your Password?
+        </Typography>
+        <Typography variant="body1" sx={{ color: "#555", fontSize: "15px" }}>
+          Don’t worry! Just enter your registered email or mobile number,  
+          and we’ll send you a verification code to reset your password.
+        </Typography>
+      </Box>
+
+      {/* Right Section */}
+      <Paper
+        elevation={6}
+        sx={{
+          flex: 1,
+          p: 4,
+          maxWidth: "400px",
+          borderRadius: "12px",
+          backgroundColor: "#dde6c5ff",
+          border: "1px solid #e0e0e0",
+          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.52)",
+        }}
+      >
+        <Typography variant="body2" sx={{ color: "#555", mb: 1, fontSize:16 }}>
+          Enter your email or number
         </Typography>
 
-        {/* Email / Mobile Input */}
-        <Typography variant="body2" sx={{ color: "#555", mb: 1 }}>
-          Enter associated email or mobile number.
-        </Typography>
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-          <MailOutline sx={{ color: "#555" }} />
+          {/* //<FaEnvelope style={{ color: "#444" }} /> */}
           <TextField
             fullWidth
-            placeholder="Enter your email or number"
-            value={emailOrNumber}
-            onChange={(e) => setEmailOrNumber(e.target.value)}
             variant="filled"
+            placeholder="Enter your email or number"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             InputProps={{
               disableUnderline: true,
+    //            startAdornment: (
+    //   <InputAdornment position="start" sx={{ alignItems: "center" }}>
+    //     <FaEnvelope style={{ color: "#466e6b",fontSize: "16px", marginBottom: "2px"}} />
+    //   </InputAdornment>
+    // ),
               sx: {
-                backgroundColor: "#d6e8c4",
+                backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
-                fontSize: "14px",
-              },
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
+                 fontSize: "14px",
+                  input: {
+                  padding: "12px 14px",
+                   textAlignVertical: "center",
+                   display: "flex",
+                   alignItems: "center",
+              }}
             }}
           />
         </Stack>
 
         <Button
-          fullWidth
-          variant="contained"
+        fullWidth
           sx={{
+            height:45,
             backgroundColor: "#466e6b",
-            borderRadius: 3,
+            color: "#fff",
             py: 1.3,
-            textTransform: "none",
-            fontWeight: 600,
+            borderRadius: 3,
             mb: 3,
+            fontWeight: 600,
             "&:hover": { backgroundColor: "#395a58" },
           }}
-          onClick={handleContinue}
+          onClick={handleSendOtp}
         >
-          Continue
+          Send OTP
         </Button>
 
-        {/* OTP Input */}
-        <Typography variant="body2" sx={{ color: "#555", mb: 1 }}>
-          Enter OTP sent to your e-mail or mobile
+        <Typography variant="body2" sx={{ color: "#555", mb: 1, fontSize:16 }}>
+          Enter OTP
         </Typography>
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-          <LockOutlined sx={{ color: "#555" }} />
+
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 3 }}>
+          {/* <FaLock style={{ color: "#444" }} /> */}
           <TextField
             fullWidth
+            variant="filled"
             placeholder="Enter OTP"
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
-            variant="filled"
             InputProps={{
               disableUnderline: true,
+    //            startAdornment: (
+    //   <InputAdornment position="start" sx={{ display: "flex", alignItems: "center" }}>
+    //     <FaLock style={{ color: "#466e6b", fontSize: "16px", marginBottom: "2px"}} />
+    //   </InputAdornment>
+    // ),
               sx: {
-                backgroundColor: "#d6e8c4",
+                 backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
-                fontSize: "14px",
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
+                  fontSize: "14px",
+                  input: {
+                  padding: "12px 14px",
+                   textAlignVertical: "center",
+                   display: "flex",
+                   alignItems: "center",
+              }
               },
             }}
           />
@@ -159,29 +195,12 @@ const Forgot = () => {
             py: 1.3,
             textTransform: "none",
             fontWeight: 600,
-            mb: 2,
             "&:hover": { backgroundColor: "#395a58" },
           }}
           onClick={handleNext}
         >
           Next
         </Button>
-
-        {/* Resend link */}
-        <Typography variant="body2" sx={{ textAlign: "center", color: "#444" }}>
-          Didn’t receive the code?{" "}
-          <Typography
-            component="span"
-            sx={{
-              color: "#466e6b",
-              fontWeight: 600,
-              cursor: "pointer",
-            }}
-            onClick={() => alert("OTP Resent!")}
-          >
-            RESEND
-          </Typography>
-        </Typography>
       </Paper>
     </Box>
     </div>

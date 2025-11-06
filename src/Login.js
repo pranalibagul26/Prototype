@@ -17,6 +17,7 @@ import {
   LockOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import logo from "./image/logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -35,35 +36,65 @@ const Login = () => {
 
   return (
     <div className="main-container">
-    <Box
+     <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: "#fffdd0",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "center",
+       background: "linear-gradient(230deg, #99b562ff 0%, #d6e8c4 100%)",
         p: 2,
+        gap: { xs: 4, md: 6 },
       }}
     >
-      <Paper
-        elevation={0}
+      {/* Left Section */}
+      <Box
         sx={{
-          backgroundColor: "#fffdd0",
-          p: 3,
-          width: isMobile ? "100%" : "400px",
-          borderRadius: 3,
-          boxShadow: "none",
+          flex: 1,
+          textAlign: { xs: "center", md: "left" },
+          maxWidth: { xs: "100%", md: "350px" },
+        mb: isMobile ? 4 : 0,
         }}
       >
-        {/* Title */}
+         <Box
+    component="img"
+    src={logo}
+    alt="App Logo"
+    sx={{
+      width: "auto",
+      height: 120,
+      position: { xs: "static", md: "absolute" },
+      top: { md: "30px" },
+      left: { md: "30px" },
+      mb: { xs: 2, md: 0 },
+    }}
+  />
         <Typography
-          variant="h5"
+          variant="h4"
           fontWeight={700}
-          sx={{ color: "#444", mb: 3, lineHeight: 1.3 }}
+          sx={{ color: "#444", mb: 2, lineHeight: 1.3 }}
         >
-          Hey, <br /> Welcome
+          Hey, <br /> Welcome Back 👋
         </Typography>
+        <Typography variant="body1" sx={{ color: "#555", fontSize: "15px" }}>
+          Log in to your account and continue where you left off.  
+          Manage your devices and stay connected easily.
+        </Typography>
+      </Box>
 
+      {/* Right Section */}
+      <Paper
+        elevation={6}
+        sx={{
+          flex: 1,
+          p: 4,
+          maxWidth: "400px",
+          borderRadius: "12px",
+         backgroundColor: "#dde6c5ff",
+          border: "1px solid #e0e0e0",
+          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.52)",
+        }}
+      >
         {/* Email Field */}
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
           <EmailOutlined sx={{ color: "#444" }} />
@@ -71,15 +102,20 @@ const Login = () => {
             fullWidth
             placeholder="Enter your email or number"
             variant="filled"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+                backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                input: {
+        padding: "12px 14px",
+        textAlignVertical: "center",
+        display: "flex",
+        alignItems: "center",
+      },
+                "&:hover": { backgroundColor: "#a9ca8aff" },
               },
             }}
           />
@@ -93,15 +129,20 @@ const Login = () => {
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
             variant="filled"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+                backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                input: {
+        padding: "12px 14px",
+        textAlignVertical: "center",
+        display: "flex",
+        alignItems: "center",
+      },
+                "&:hover": { backgroundColor: "#a9ca8aff" },
               },
               endAdornment: (
                 <IconButton onClick={() => setShowPassword(!showPassword)}>
@@ -112,7 +153,6 @@ const Login = () => {
           />
         </Stack>
 
-        {/* Forgot Password */}
         <Box textAlign="right" mb={3}>
           <Link
             component="button"
@@ -124,7 +164,7 @@ const Login = () => {
           </Link>
         </Box>
 
-        {/* Login Button */}
+        {/* Buttons */}
         <Button
           fullWidth
           variant="contained"
@@ -137,42 +177,26 @@ const Login = () => {
             "&:hover": { backgroundColor: "#395a58" },
             mb: 2,
           }}
-          onClick={handleLogin}
+          onClick={() => alert("Login Successful!")}
         >
           Login
         </Button>
 
-        {/* Signup Section */}
-        <Typography variant="body2" align="center" sx={{ color: "#555" }}>
-          Don’t have an Account?
-        </Typography>
         <Typography
-          variant="caption"
+          variant="body2"
           align="center"
-          display="block"
-          sx={{ mb: 2, color: "#777" }}
+          sx={{ color: "#555", mt: 1 }}
         >
-          By signing up, you agree to our{" "}
-          <Link sx={{ color: "#466e6b" }}>Terms of Use</Link> &{" "}
-          <Link sx={{ color: "#466e6b" }}>Privacy Policy</Link>.
+          Don’t have an Account?{" "}
+          <Link
+            component="button"
+            underline="none"
+            sx={{ color: "#466e6b", fontWeight: 600 }}
+            onClick={() => navigate("/signup")}
+          >
+            Sign-Up
+          </Link>
         </Typography>
-
-        {/* Signup Button */}
-        <Button
-          fullWidth
-          variant="contained"
-          sx={{
-            backgroundColor: "#466e6b",
-            borderRadius: 3,
-            py: 1.3,
-            textTransform: "none",
-            fontWeight: 600,
-            "&:hover": { backgroundColor: "#395a58" },
-          }}
-          onClick={() => navigate("/signup")}
-        >
-          Sign-Up
-        </Button>
       </Paper>
     </Box>
     </div>

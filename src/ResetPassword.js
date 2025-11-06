@@ -17,7 +17,7 @@ import {
   Cancel,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
+import logo from "./image/logo.png"
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -29,6 +29,7 @@ const ResetPassword = () => {
   const handleBack = () => navigate(-1);
 
   const handleReset = () => {
+    navigate("/login");
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -46,48 +47,76 @@ const ResetPassword = () => {
 
   return (
      <div className="main-container">
-    <Box
+   <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: "#fffdd0",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "center",
+       // backgroundColor: "#fffdd0ff",
+         background: "linear-gradient(230deg, #99b562ff 0%, #d6e8c4 100%)",
         p: 2,
+        gap: { xs: 4, md: 6 }, // reduces space between boxes
       }}
     >
-      <Paper
-        elevation={0}
+      {/* Left Section */}
+      <Box
         sx={{
-          backgroundColor: "#fffdd0",
-          p: 3,
-          width: isMobile ? "100%" : "400px",
-          borderRadius: 3,
-          boxShadow: "none",
+          flex: 1,
+          textAlign: isMobile ? "center" : "left",
+          maxWidth: { xs: "100%", md: "350px" },
+          mb: isMobile ? 4 : 0,
         }}
       >
-        {/* Back Button
-        <IconButton
-          onClick={handleBack}
-          sx={{
-            backgroundColor: "#f5f5ba",
-            mb: 1,
-            "&:hover": { backgroundColor: "#ecec9a" },
-          }}
-        >
-          <ArrowBack />
-        </IconButton> */}
-
-        {/* Title */}
+         <Box
+            component="img"
+            src={logo}
+            alt="App Logo"
+            sx={{
+              width: "auto",
+              height: 120,
+              position: { xs: "static", md: "absolute" },
+              top: { md: "30px" },
+              left: { md: "30px" },
+              mb: { xs: 2, md: 0 },
+            }}
+          />
         <Typography
-          variant="h5"
+          variant="h4"
           fontWeight={700}
-          sx={{ color: "#444", mb: 3, lineHeight: 1.3 }}
+          sx={{ color: "#444", lineHeight: 1.4 }}
         >
           Set Your <br /> New Password
         </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "#555",
+            mt: 2,
+            maxWidth: "350px",
+            fontSize: "15px",
+            mx: isMobile ? "auto" : "0",
+          }}
+        >
+          Create a strong and secure password to protect your account.  
+          Your new password must meet the conditions shown here.
+        </Typography>
+      </Box>
 
-        {/* Password Field */}
+      {/* Right Section */}
+      <Paper
+        elevation={6}
+        sx={{
+          flex: 1,
+          p: 4,
+          maxWidth: "380px",
+          borderRadius: "12px",
+          backgroundColor: "#dde6c5ff",
+          border: "1px solid #e0e0e0",
+          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.52)",
+        }}
+      >
+        {/* Password */}
         <Typography variant="body2" sx={{ color: "#555", mb: 1 }}>
           Password
         </Typography>
@@ -102,10 +131,17 @@ const ResetPassword = () => {
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+                backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                input: {
+        padding: "12px 14px",
+        textAlignVertical: "center",
+        display: "flex",
+        alignItems: "center",
+      },
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
               },
               endAdornment: (
                 <IconButton onClick={() => setShowPassword(!showPassword)}>
@@ -116,11 +152,11 @@ const ResetPassword = () => {
           />
         </Stack>
 
-        {/* Confirm Password Field */}
+        {/* Confirm Password */}
         <Typography variant="body2" sx={{ color: "#555", mb: 1 }}>
           Confirm Password
         </Typography>
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 3 }}>
           <TextField
             fullWidth
             type={showConfirm ? "text" : "password"}
@@ -131,10 +167,17 @@ const ResetPassword = () => {
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+                 backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                input: {
+        padding: "12px 14px",
+        textAlignVertical: "center",
+        display: "flex",
+        alignItems: "center",
+      },
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
               },
               endAdornment: (
                 <IconButton onClick={() => setShowConfirm(!showConfirm)}>
@@ -145,7 +188,7 @@ const ResetPassword = () => {
           />
         </Stack>
 
-        {/* Validation checklist */}
+        {/* Validation Checklist */}
         <Box sx={{ mb: 3 }}>
           <ValidationItem
             isValid={validations.lowercase}

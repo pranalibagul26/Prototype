@@ -22,6 +22,7 @@ import {
   Apple,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import logo from "./image/logo.png";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,34 +33,63 @@ const Signup = () => {
   return (
     <div className="main-container">
     <Box
-      sx={{
-        minHeight: "100vh",
-        backgroundColor: "#fffdd0",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        p: 2,
-      }}
-    >
-      <Paper
-        elevation={0}
+  sx={{
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+     background: "linear-gradient(230deg, #99b562ff 0%, #d6e8c4 100%)",
+    gap: { xs: 4, md: 6 },
+    p: 2,
+  }}
+>
+      {/* Left box with title */}
+  <Box
+    sx={{
+      flex: 1,
+      textAlign: { xs: "center", md: "left" },
+      maxWidth: { xs: "100%", md: "350px" },
+    }}
+  >
+     <Box
+        component="img"
+        src={logo}
+        alt="App Logo"
         sx={{
-          backgroundColor: "#fffdd0",
-          p: 3,
-          width: isMobile ? "100%" : "400px",
-          borderRadius: 3,
-          boxShadow: "none",
+          width: "auto",
+          height: 120,
+          position: { xs: "static", md: "absolute" },
+          top: { md: "30px" },
+          left: { md: "30px" },
+          mb: { xs: 2, md: 0 },
+        }}
+      />
+
+    <Typography
+      variant="h4"
+      fontWeight={700}
+      sx={{ color: "#444", mb: 2, lineHeight: 1.3 }}
+    >
+      Let’s, <br /> Create Account
+    </Typography>
+    <Typography variant="body1" sx={{ color: "#555", fontSize: "15px" }}>
+      Join us today and manage your smart home devices  
+      all in one place — quick, simple, and secure.
+    </Typography>
+  </Box>
+ {/* Right Section */}
+      <Paper
+        elevation={6}
+        sx={{
+          flex: 1,
+          p: 4,
+          maxWidth: "380px",
+          borderRadius: "12px",
+          backgroundColor: "#dde6c5ff",
+          border: "1px solid #e0e0e0",
+          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.52)",
         }}
       >
-        {/* Title */}
-        <Typography
-          variant="h5"
-          fontWeight={700}
-          sx={{ color: "#444", mb: 3, lineHeight: 1.3 }}
-        >
-          Let’s, <br /> Create Account
-        </Typography>
-
         {/* Full Name */}
         <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
           <PersonOutline sx={{ color: "#444" }} />
@@ -70,10 +100,18 @@ const Signup = () => {
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+                backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
+                  fontSize: "14px",
+                  input: {
+                  padding: "12px 14px",
+                   textAlignVertical: "center",
+                   display: "flex",
+                   alignItems: "center",
+                  }
               },
             }}
           />
@@ -89,10 +127,18 @@ const Signup = () => {
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+                backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
+                  fontSize: "14px",
+                  input: {
+                  padding: "12px 14px",
+                   textAlignVertical: "center",
+                   display: "flex",
+                   alignItems: "center",
+              }
               },
             }}
           />
@@ -108,10 +154,18 @@ const Signup = () => {
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+                backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
+                  fontSize: "14px",
+                  input: {
+                  padding: "12px 14px",
+                   textAlignVertical: "center",
+                   display: "flex",
+                   alignItems: "center",
+              }
               },
             }}
           />
@@ -128,10 +182,17 @@ const Signup = () => {
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+                backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                input: {
+        padding: "12px 14px",
+        textAlignVertical: "center",
+        display: "flex",
+        alignItems: "center",
+      },
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
               },
               endAdornment: (
                 <IconButton onClick={() => setShowPassword(!showPassword)}>
@@ -153,10 +214,17 @@ const Signup = () => {
             InputProps={{
               disableUnderline: true,
               sx: {
-                backgroundColor: "#d6e8c4",
+               backgroundColor: "#c2dcabff",
                 borderRadius: 3,
                 height: "45px",
                 fontSize: "14px",
+                input: {
+        padding: "12px 14px",
+        textAlignVertical: "center",
+        display: "flex",
+        alignItems: "center",
+      },
+                 "&:hover": { backgroundColor: "#a9ca8aff" },
               },
               endAdornment: (
                 <IconButton onClick={() => setShowConfirm(!showConfirm)}>
@@ -215,12 +283,12 @@ const Signup = () => {
             component="button"
             underline="none"
             sx={{ color: "#466e6b", fontWeight: 600 }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/login")}
           >
             Sign-In
           </Link>
         </Typography>
-      </Paper>
+        </Paper>
     </Box>
     </div>
   );
