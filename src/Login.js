@@ -47,6 +47,20 @@ const Login = () => {
         gap: { xs: 4, md: 6 },
       }}
     >
+      {/* Fixed Logo */}
+  <Box
+    component="img"
+    src={logo}
+    alt="App Logo"
+    sx={{
+      position: "fixed",
+      top: 20,
+      left: 20,
+      width: "auto",
+      height: 120,
+      zIndex: 10,
+    }}
+  />
       {/* Left Section */}
       <Box
         sx={{
@@ -56,19 +70,7 @@ const Login = () => {
         mb: isMobile ? 4 : 0,
         }}
       >
-         <Box
-    component="img"
-    src={logo}
-    alt="App Logo"
-    sx={{
-      width: "auto",
-      height: 120,
-      position: { xs: "static", md: "absolute" },
-      top: { md: "30px" },
-      left: { md: "30px" },
-      mb: { xs: 2, md: 0 },
-    }}
-  />
+         
         <Typography
           variant="h4"
           fontWeight={700}
@@ -170,7 +172,7 @@ const Login = () => {
           variant="contained"
           sx={{
             backgroundColor: "#466e6b",
-            borderRadius: 3,
+            borderRadius: 5,
             py: 1.3,
             textTransform: "none",
             fontWeight: 600,

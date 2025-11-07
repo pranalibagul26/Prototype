@@ -63,52 +63,62 @@ const Welcome = () => {
         <Box
       sx={{
         minHeight: "100vh",
+        overflow: "hidden",  
         display: "flex",
         flexDirection: "column",
-        //justifyContent: "space-between",
-        justifyContent:"flex-start",
+        justifyContent: "space-between",
+        //justifyContent:"flex-start",
         alignItems: "center",
         background: "linear-gradient(360deg, #fdfdfaff 0%, #a7b94fff 100%)",
         p: 3,
+        position:'relative',
       }}
     >
-        {/* 🔹 Top Bar: Logo Left + Skip Right */}
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          mb: 2,
-        }}
-      >
-        {/* Logo */}
-        <Box
-          component="img"
-          src={logo} // ← your logo path (place it in public/image/)          
-          alt="App Logo"
-          sx={{
-            height: 120,
-            width: "auto",
-            objectFit: "contain",
-            ml: 1,
-          }}
-        />
+{/* 🔹 Top Bar: Logo Left + Skip Right */}
+<Box
+  sx={{
+    width: "100%",
+    position: "absolute",
+    top: 3,
+    left: 2,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    px: 2,       // reduced horizontal padding (was 3)
+  //  pt: 1,       // reduced top padding (was 2)
+    zIndex: 10,
+    overflow:'hidden'
+  }}
+>
+  {/* Logo */}
+  <Box
+    component="img"
+    src={logo}
+    alt="App Logo"
+    sx={{
+      overflow:'hidden',
+      height: 120,        // slightly smaller for tighter look
+      width: "auto",
+      objectFit: "contain",
+    //  ml: 0.5,           // less margin on the left (was 1)
+    }}
+  />
 
-      {/* Skip Button */}
-      <Button
-        onClick={() => navigate("/login")}
-        sx={{
-          alignSelf: "flex-end",
-          textTransform: "none",
-          color: "#2d4739",
-          fontWeight: 700,
-          mb: 5,
-        }}
-      >
-        Skip
-      </Button>
-      </Box>
+  {/* Skip Button */}
+  <Button
+    onClick={() => navigate("/login")}
+    sx={{
+      textTransform: "none",
+      color: "#2d4739",
+      fontWeight: 600,
+      fontSize: "16px",
+      mr: 3,
+    }}
+  >
+    Skip
+  </Button>
+</Box>
+
 
       {/* Slide Section */}
       <Fade in={fadeIn} timeout={600}>
@@ -185,7 +195,7 @@ const Welcome = () => {
           width: "30%",
           mb: 5,
           backgroundColor: "#466e6b",
-          borderRadius: 3,
+          borderRadius: 5,
           py: 1.3,
           fontWeight: 600,
           textTransform: "none",
