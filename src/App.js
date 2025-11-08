@@ -10,13 +10,13 @@ import Welcome from './Welcome';
 function App() {
   return (
      <Router>
-      <Routes>
-          <Route path="/" element={<Welcome />} />
+        <Routes>
+           <Route path="/"      element={<Welcome />} />
            <Route path="/login" element={<Login />} />
-          <Route path="/forgot" element={<Forgot />} />
+           <Route path="/forgot"element={<Forgot />} />
            <Route path="/reset" element={<ResetPassword />} />
-           <Route path="/signup" element={<Signup />} />
-         </Routes>
+           <Route path="/signup"element={<Signup />} />
+        </Routes> 
      </Router>
   );
 }
