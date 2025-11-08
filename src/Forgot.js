@@ -4,186 +4,251 @@ import {
   Button,
   TextField,
   Typography,
-  IconButton,
   Paper,
   Stack,
+  IconButton,
+  Snackbar,
+  Alert,
   useMediaQuery,
 } from "@mui/material";
-import { ArrowBack, MailOutline, LockOutlined } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import logo from "./image/logo.png";
 
 const Forgot = () => {
-  const [emailOrNumber, setEmailOrNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+  const [alert, setAlert] = useState({ type: "", message: "" });
+  const [open, setOpen] = useState(false); // Snackbar state
   const navigate = useNavigate();
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery("(max-width:900px)");
 
-  const handleContinue = () => {
-    if (!emailOrNumber) {
-      alert("Please enter your email or number!");
-      return;
-    }
-    alert(`OTP sent to ${emailOrNumber}`);
+  // Function to show snackbar alerts
+  const showAlert = (type, message) => {
+    setAlert({ type, message });
+    setOpen(true);
+    setTimeout(() => setOpen(false), 2000);
   };
 
+  // Cross (close) button — go back to login
+  const handleClose = () => navigate("/login");
+
+  // Send OTP handler
+  const handleSendOtp = () => {
+    if (!email) {
+      showAlert("error", "Please enter your email or mobile number!");
+      return;
+    }
+    showAlert("success", `OTP sent to ${email}`);
+  };
+
+  // Next button handler
   const handleNext = () => {
-     navigate("/reset");
     if (!otp) {
-      alert("Please enter OTP!");
+      showAlert("warning", "Please enter the OTP!");
       return;
     }
-    alert("OTP verified!");
-  };
-
-  const handleBack = () => {
-    navigate("/"); // back to login or home
+    showAlert("success", "OTP verified successfully!");
+    setTimeout(() => navigate("/reset"), 2200);
   };
 
   return (
     <div className="main-container">
-    <Box
-      sx={{
-        minHeight: "100vh",
-        backgroundColor: "#fffdd0",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        p: 2,
-      }}
-
-    >
-               {/* Back button
-        <IconButton
-          onClick={handleBack}
+      {/* ✅ Snackbar Alert */}
+      <Snackbar
+        open={open}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ mt: 2 }}
+      >
+        <Alert
+          severity={alert.type}
+          variant="filled"
           sx={{
-            backgroundColor: "#f5f5ba",
-            mb: 1,
-            "&:hover": { backgroundColor: "#ecec9a" },
+            fontWeight: 500,
+            borderRadius: "8px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
           }}
         >
-          <ArrowBack />
-        </IconButton> */}
+          {alert.message}
+        </Alert>
+      </Snackbar>
 
-      <Paper
-        elevation={0}
+      {/* 🌿 Main Container */}
+      <Box
         sx={{
-          backgroundColor: "#fffdd0",
-          p: 3,
-          width: isMobile ? "100%" : "400px",
-          borderRadius: 3,
-          boxShadow: "none",
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(230deg, #99b562ff 0%, #d6e8c4 100%)",
+          gap: { xs: 4, md: 6 },
+          p: 2,
         }}
       >
-     
-
-        {/* Title */}
-        <Typography
-          variant="h5"
-          fontWeight={700}
-          sx={{ color: "#444", mb: 2, lineHeight: 1.3 }}
-        >
-          Forgot <br /> Password?
-        </Typography>
-
-        {/* Email / Mobile Input */}
-        <Typography variant="body2" sx={{ color: "#555", mb: 1 }}>
-          Enter associated email or mobile number.
-        </Typography>
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-          <MailOutline sx={{ color: "#555" }} />
-          <TextField
-            fullWidth
-            placeholder="Enter your email or number"
-            value={emailOrNumber}
-            onChange={(e) => setEmailOrNumber(e.target.value)}
-            variant="filled"
-            InputProps={{
-              disableUnderline: true,
-              sx: {
-                backgroundColor: "#d6e8c4",
-                borderRadius: 3,
-                height: "45px",
-                fontSize: "14px",
-              },
-            }}
-          />
-        </Stack>
-
-        <Button
-          fullWidth
-          variant="contained"
+        {/* 🟢 Logo */}
+        <Box
+          component="img"
+          src={logo}
+          alt="App Logo"
           sx={{
-            backgroundColor: "#466e6b",
-            borderRadius: 3,
-            py: 1.3,
-            textTransform: "none",
-            fontWeight: 600,
-            mb: 3,
-            "&:hover": { backgroundColor: "#395a58" },
+            position: "fixed",
+            top: 20,
+            left: 20,
+            width: "auto",
+            height: 120,
+            zIndex: 10,
           }}
-          onClick={handleContinue}
-        >
-          Continue
-        </Button>
+        />
 
-        {/* OTP Input */}
-        <Typography variant="body2" sx={{ color: "#555", mb: 1 }}>
-          Enter OTP sent to your e-mail or mobile
-        </Typography>
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-          <LockOutlined sx={{ color: "#555" }} />
-          <TextField
-            fullWidth
-            placeholder="Enter OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            variant="filled"
-            InputProps={{
-              disableUnderline: true,
-              sx: {
-                backgroundColor: "#d6e8c4",
-                borderRadius: 3,
-                height: "45px",
-                fontSize: "14px",
-              },
-            }}
-          />
-        </Stack>
-
-        <Button
-          fullWidth
-          variant="contained"
+        {/* Left Section */}
+        <Box
           sx={{
-            backgroundColor: "#466e6b",
-            borderRadius: 3,
-            py: 1.3,
-            textTransform: "none",
-            fontWeight: 600,
-            mb: 2,
-            "&:hover": { backgroundColor: "#395a58" },
+            flex: 1,
+            textAlign: { xs: "center", md: "left" },
+            maxWidth: { xs: "100%", md: "350px" },
+            mb: isMobile ? 4 : 0,
           }}
-          onClick={handleNext}
         >
-          Next
-        </Button>
-
-        {/* Resend link */}
-        <Typography variant="body2" sx={{ textAlign: "center", color: "#444" }}>
-          Didn’t receive the code?{" "}
           <Typography
-            component="span"
-            sx={{
-              color: "#466e6b",
-              fontWeight: 600,
-              cursor: "pointer",
-            }}
-            onClick={() => alert("OTP Resent!")}
+            variant="h4"
+            fontWeight={700}
+            sx={{ color: "#444", mb: 2, lineHeight: 1.3 }}
           >
-            RESEND
+            Forgot <br /> Your Password?
           </Typography>
-        </Typography>
-      </Paper>
-    </Box>
+          <Typography variant="body1" sx={{ color: "#555", fontSize: "15px" }}>
+            Don’t worry! Just enter your registered email or mobile number,  
+            and we’ll send you a verification code to reset your password.
+          </Typography>
+        </Box>
+
+        {/* Right Section */}
+        <Paper
+          elevation={6}
+          sx={{
+            flex: 1,
+            p: 4,
+            maxWidth: "400px",
+            borderRadius: "12px",
+            backgroundColor: "#dde6c5ff",
+            border: "1px solid #e0e0e0",
+            boxShadow: "0 4px 15px rgba(0, 0, 0, 0.52)",
+            position: "relative",
+          }}
+        >
+          {/* ❌ Cross Button */}
+          <IconButton
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              top: 8,
+              right: 8,
+              color: "#444",
+              "&:hover": { color: "#000" },
+            }}
+          >
+            <Close />
+          </IconButton>
+
+          {/* Email Field */}
+          <Typography variant="body2" sx={{ color: "#555", mb: 1, fontSize: 16 }}>
+            Enter your email or number
+          </Typography>
+
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
+            <TextField
+              fullWidth
+              variant="filled"
+              placeholder="Enter your email or number"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              InputProps={{
+                disableUnderline: true,
+                sx: {
+                  backgroundColor: "#c2dcabff",
+                  borderRadius: 3,
+                  height: "45px",
+                  "&:hover": { backgroundColor: "#a9ca8aff" },
+                  fontSize: "14px",
+                  input: {
+                    padding: "12px 14px",
+                    textAlignVertical: "center",
+                    display: "flex",
+                    alignItems: "center",
+                  },
+                },
+              }}
+            />
+          </Stack>
+
+          {/* Send OTP Button */}
+          <Button
+            fullWidth
+            sx={{
+              height: 45,
+              backgroundColor: "#466e6b",
+              color: "#fff",
+              py: 1.3,
+              borderRadius: 5,
+              mb: 3,
+              fontWeight: 600,
+              "&:hover": { backgroundColor: "#395a58" },
+            }}
+            onClick={handleSendOtp}
+          >
+            SEND OTP
+          </Button>
+
+          {/* OTP Field */}
+          <Typography variant="body2" sx={{ color: "#555", mb: 1, fontSize: 16 }}>
+            Enter OTP
+          </Typography>
+
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 3 }}>
+            <TextField
+              fullWidth
+              variant="filled"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              InputProps={{
+                disableUnderline: true,
+                sx: {
+                  backgroundColor: "#c2dcabff",
+                  borderRadius: 3,
+                  height: "45px",
+                  "&:hover": { backgroundColor: "#a9ca8aff" },
+                  fontSize: "14px",
+                  input: {
+                    padding: "12px 14px",
+                    textAlignVertical: "center",
+                    display: "flex",
+                    alignItems: "center",
+                  },
+                },
+              }}
+            />
+          </Stack>
+
+          {/* Next Button */}
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{
+              backgroundColor: "#466e6b",
+              borderRadius: 5,
+              py: 1.3,
+              mt: -1,
+              textTransform: "none",
+              fontWeight: 600,
+              "&:hover": { backgroundColor: "#395a58" },
+            }}
+            onClick={handleNext}
+          >
+            NEXT
+          </Button>
+        </Paper>
+      </Box>
     </div>
   );
 };
