@@ -12,6 +12,7 @@ import {
   Divider,
   Tooltip,
   Paper,
+  Grid,
 } from "@mui/material";
 import {
   Search,
@@ -45,8 +46,6 @@ import {
   CreditCard as CreditCardIcon,
   Tag as CategoryIcon,
 } from "@mui/icons-material";
-
-
 
 
 // --- EXISTING CONTACTS DATA (KEEP AS IS) ---
@@ -158,11 +157,11 @@ const ContactActions = () => {
 };
 // 🆕 New MiniSidebar Component for constant icons
 const MiniSidebar = ({ onMenuClick }) => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   const menuItems = [
-    { name: "Home", icon: HomeIcon },
+    { name: "Home", icon: HomeIcon, path:"/home" },
     { name: "Recent", icon: RecentIcon },
-    { name: "Add Relationship", icon: AddIcon, path:"/add" },
+    { name: "Add", icon: AddIcon },
     { name: "Video", icon: VideoIcon },
     { name: "Settings", icon: SettingIcon },
     { name: "Menu", icon: AppsIcon },
@@ -182,7 +181,7 @@ const MiniSidebar = ({ onMenuClick }) => {
         // pb: 2,
       }}
     >
-            {/* 🧩 Baatology Logo */}
+      {/* 🧩 Baatology Logo */}
       <Box
         component="img"
         src={logo1}
@@ -216,6 +215,7 @@ const MiniSidebar = ({ onMenuClick }) => {
   </IconButton>
 </Tooltip>
 
+
       <Stack spacing={0.3} >
         {menuItems.map((item) => (
           <Tooltip title={item.name} placement="right" key={item.name}>
@@ -241,7 +241,7 @@ const MenuSidebar = ({ isOpen, onClose }) => {
   const menuItems = [
     { name: "Home", icon: HomeIcon },
     { name: "Recent", icon: RecentIcon },
-    { name: "Add Relationship", icon: AddIcon },
+    { name: "Add", icon: AddIcon },
     { name: "Video", icon: VideoIcon },
     { name: "Setting", icon: SettingIcon },
     { name: "Menu", icon: AppsIcon },
@@ -264,25 +264,23 @@ const MenuSidebar = ({ isOpen, onClose }) => {
         boxShadow: 8,
       }}
     >
-     
-          {/* 🧩 Baatology Logo */}
-      <Box
-        component="img"
-        src={logo1}
-        alt="Baatology Logo"
-        sx={{
-          position :"fixed",
-          left:-15, 
-          top:-30,
-          width: 150,
-          height: 150,
-          borderRadius: "12px",
-          mb: 20,
-          cursor: "pointer",
-        }}
-      />
-     
-      <Stack spacing={1} sx={{mt:"70px"}}>
+                {/* 🧩 Baatology Logo */}
+            <Box
+              component="img"
+              src={logo1}
+              alt="Baatology Logo"
+              sx={{
+                position :"fixed",
+                left:-15, 
+                top:-30,
+                width: 150,
+                height: 150,
+                borderRadius: "12px",
+                mb: 20,
+                cursor: "pointer",
+              }}
+            />
+      <Stack spacing={1}sx={{mt:"70px"}}>
         {menuItems.map((item) => (
           <Button
             key={item.name}
@@ -305,7 +303,6 @@ const MenuSidebar = ({ isOpen, onClose }) => {
     </Box>
   );
 };
-// --- ICON MAPPING (Add this function/map outside the Sidebar if preferred, but it works fine inside too) ---
 const getTypeIcon = (type) => {
   switch (type) {
     case "Family":
@@ -346,7 +343,7 @@ const Sidebar = ({ onMenuClick }) => {
     >
       {/* Search Bar + Menu Icon */}
       <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 2 }}>
-    
+      
         {/* Search Bar */}
         <TextField
           fullWidth
@@ -434,7 +431,7 @@ const Sidebar = ({ onMenuClick }) => {
             </Typography>
    {/* Category (type) */}
   <Stack direction="row" alignItems="center" spacing={0.8}>
-    {getTypeIcon(c.type)} {/* Use the helper function */}
+    {getTypeIcon(c.type)}
     {/* <CategoryIcon sx={{ fontSize: 15, color: "#729d39" }} /> */}
     <Typography sx={{ fontSize: "12px", color: "#555" }}>{c.type}</Typography>
   </Stack>
@@ -466,324 +463,35 @@ const Sidebar = ({ onMenuClick }) => {
   );
 };
 
-// --- EXISTING CONNECTION DIAGRAM (KEEP AS IS) ---
-// --- UPDATED CONNECTION DIAGRAM ---
-const ConnectionDiagram = () => {
-  const networkRef = useRef(null);
-  const networkInstance = useRef(null);
-
-  useEffect(() => {
-    const container = networkRef.current;
-
-    // Main + Primary nodes
-    const nodes = new DataSet([
-      { id: 1, label: "You", color: "#ff6b6b", shape: "circularImage", size: 30 , image :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoZPQJ7kRFouOgvueVTlEG5unB1s979ktYYg&s"},
-      {
-        id: 2,
-        label: "Family",
-        color: "#6c63ff",
-        size: 25,
-        shape: "circularImage",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv98rJWPvweaCdKkG9Y5p5EHE5cg3-C7lazg&s",
-      },
-      {
-        id: 3,
-        label: "Work",
-        color: "#6c63ff",
-        size: 25,
-        shape: "circularImage",
-        image: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
-      },
-      {
-        id: 4,
-        label: "Education",
-        color: "#6c63ff",
-        size: 25,
-        shape: "circularImage",
-        image: "https://cdn-icons-png.flaticon.com/512/3135/3135755.png",
-      },
-      {
-        id: 5,
-        label: "Social",
-        color: "#6c63ff",
-        size: 25,
-        shape: "circularImage",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtUZxBraYkyw-CwfTQrkmlWNPUgJqUXdc05Q&s",
-      },
-      {
-        id: 6,
-        label: "Personal",
-        color: "#6c63ff",
-        size: 25,
-        shape: "circularImage",
-        image: "https://cdn-icons-png.flaticon.com/512/1077/1077012.png",
-      },
-    ]);
-
-    const edges = new DataSet([
-      { from: 1, to: 2 },
-      { from: 1, to: 3 },
-      { from: 1, to: 4 },
-      { from: 1, to: 5 },
-      { from: 1, to: 6 },
-    ]);
-
-    // Mapping of expandable child nodes (rest remains the same)
-    const childNodesMap = {
-      2: [
-        { id: 20, label: "Brother" },
-        { id: 21, label: "Sister" },
-        { id: 22, label: "Father" },
-        { id: 23, label: "Mother" },
-        { id: 24, label: "Son" },
-        { id: 25, label: "Daughter" },
-        { id: 26, label: "Grandmother" },
-        { id: 27, label: "Grandfather" },
-        { id: 28, label: "Uncle" },
-        { id: 29, label: "Aunt" },
-        { id: 30, label: "Cousin" },
-        { id: 31, label: "Niece" },
-        { id: 32, label: "Nephew" },
-        { id: 33, label: "Spouse" },
-        { id: 34, label: "Brother in Law" },
-        { id: 35, label: "Sister in Law" },
-        { id: 36, label: "GrandSon" },
-        { id: 37, label: "GrandDaughter" },
-      ],
-      3: [
-        { id: 38, label: "Boss" },
-        { id: 39, label: "Manager" },
-        { id: 40, label: "Teammate" },
-        { id: 41, label: "Intern" },
-        { id: 42, label: "Mentor" },
-      ],
-      4: [
-        { id: 43, label: "Teacher" },
-        { id: 44, label: "Professor" },
-        { id: 45, label: "Senior" },
-        { id: 46, label: "Junior" },
-        { id: 47, label: "Alumni" },
-        { id: 48, label: "Batchmate" },
-        { id: 49, label: "Classmate" },
-        { id: 50, label: "Student" },
-        { id: 51, label: "Principal" },
-        { id: 52, label: "Best-Friend" },
-      ],
-      5: [
-        { id: 53, label: "Friend" },
-        { id: 54, label: "Neighbour" },
-        { id: 55, label: "Best-friend" },
-        { id: 56, label: "Acquaintance" },
-        { id: 57, label: "Society Member" },
-        { id: 58, label: "Teammate" },
-      ],
-      6: [
-        { id: 60, label: "Girlfriend" },
-        { id: 61, label: "Boyfriend" },
-        { id: 62, label: "Partner" },
-        { id: 63, label: "Ex-partner" },
-        { id: 64, label: "Fiance" },
-        { id: 65, label: "Roommate" },
-        { id: 66, label: "Crush" },
-        { id: 67, label: "Lover" },
-        { id: 68, label: "Companion" },
-        { id: 69, label: "Soulmate" },
-      ],
-    };
-
-    const subChildNodesMap = {
-      20: [
-        { id: 201, label: "Wife" },
-        { id: 202, label: "Son" },
-        { id: 203, label: "Daughter" },
-      ],
-      21: [
-        { id: 211, label: "Husband" },
-        { id: 212, label: "Son" },
-        { id: 213, label: "Daughter" },
-      ],
-      22: [
-        { id: 221, label: "Grandfather" },
-      ],
-    };
-
-    const expandedNodes = new Set();
-
-    const data = { nodes, edges };
-    
-    // 🌟 MODIFIED OPTIONS FOR STABILITY AND VIEWPORT VISIBILITY
-    const options = {
-      // 1. IMPROVED PHYSICS CONFIGURATION
-      physics: { 
-        enabled: true, 
-        stabilization: { 
-          enabled: true, 
-          iterations: 1000, 
-          updateInterval: 50, 
-          fit: true // Fit the view to the network after stabilization
-        },
-        solver: 'forceAtlas2Based',
-        forceAtlas2Based: {
-          gravitationalConstant: -70, // Slightly stronger pull
-          centralGravity: 0.01,
-          springLength: 100,
-          springConstant: 0.08,
-          damping: 0.4
-        },
-      },
-      // 2. LAYOUT CONFIGURATION
-      layout: { 
-        improvedLayout: true 
-      },
-      // 3. NODE STYLING (KEEP AS IS)
-      nodes: {
-        font: { size: 14, color: "#222", strokeWidth: 0 },
-        borderWidth: 1,
-        shadow: true,
-      },
-      // 4. EDGES STYLING (KEEP AS IS)
-      edges: {
-        color: "#888",
-        width: 1.5,
-        smooth: true,
-      },
-      // 5. INTERACTION FOR BETTER CONTROL
-      interaction: {
-        hover: true,
-        zoomView: true,
-        dragView: true,
-      },
-    };
-
-    const network = new Network(container, data, options);
-    networkInstance.current = network;
-
-    // IMPORTANT: Fit the view to the data initially, and after node creation/removal
-    network.on("stabilized", () => {
-      network.fit();
-    });
-
-    // ✅ Expand child nodes on click
-    network.on("click", (params) => {
-      if (!params.nodes.length) return;
-
-      const nodeId = params.nodes[0];
-
-      let newNodesAdded = false;
-
-      // First level expansion (Family, Work, etc.)
-      if (childNodesMap[nodeId] && !expandedNodes.has(nodeId)) {
-        childNodesMap[nodeId].forEach((child) => {
-          nodes.add({ ...child, color: "#a3d9a5", size: 15 });
-          edges.add({ from: nodeId, to: child.id });
-        });
-        expandedNodes.add(nodeId);
-        newNodesAdded = true;
-      }
-
-      // Second level expansion (Brother → Wife/Son/Daughter)
-      if (subChildNodesMap[nodeId] && !expandedNodes.has(nodeId)) {
-        subChildNodesMap[nodeId].forEach((sub) => {
-          nodes.add({ ...sub, color: "#d4ed91", size: 13 });
-          edges.add({ from: nodeId, to: sub.id });
-        });
-        expandedNodes.add(nodeId);
-        newNodesAdded = true;
-      }
-      
-      // Manually trigger stabilization and fit if new nodes were added
-      if (newNodesAdded) {
-        network.setOptions({ physics: { enabled: true } });
-        network.stabilize(100); // Small stabilization run
-      }
-    });
-
-    // 🔹 Collapse logic
-    network.on("doubleClick", (params) => {
-      if (!params.nodes.length) return;
-      const nodeId = params.nodes[0];
-
-      // collapse logic (remains the same)
-      const children =
-        (childNodesMap[nodeId] && childNodesMap[nodeId].map((c) => c.id)) ||
-        (subChildNodesMap[nodeId] && subChildNodesMap[nodeId].map((c) => c.id));
-
-      if (children) {
-        let nodesRemoved = false;
-        children.forEach((id) => {
-          if (nodes.get(id)) {
-            nodes.remove(id);
-            nodesRemoved = true;
-          }
-          edges.get().forEach((e) => {
-            if (e.from === nodeId && e.to === id) edges.remove(e.id);
-          });
-        });
-        expandedNodes.delete(nodeId);
-        
-        // Manually trigger stabilization and fit if nodes were removed
-        if (nodesRemoved) {
-             network.setOptions({ physics: { enabled: true } });
-             network.stabilize(100);
-        }
-      }
-    });
-
-    return () => network.destroy();
-  }, []);
-
-  return (
-    <Box
-      ref={networkRef}
-      sx={{
-        flex: 1,
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "transparent",
-        borderLeft: "2px solid #a3c27d",
-        position: "relative",
-      }}
-    />
-  );
-};
-
-// ... (Rest of the Home component and other components remain the same)
-
 // 🌟 Updated Home Component
 const Home = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // 🆕 State for menu visibility
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleMenuToggle = () => setIsMenuOpen(!isMenuOpen);
 
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // Category and Relationship state
+  const [selectedCategory, setSelectedCategory] = useState("Work");
+  const [selectedRelation, setSelectedRelation] = useState("");
 
-   // Category and Relationship state
-    const [selectedCategory, setSelectedCategory] = useState("Work");
-    const [selectedRelation, setSelectedRelation] = useState("");
-  
-    const categories = [
-      { name: "Family", icon: <FamilyIcon /> },
-      { name: "Work", icon: <WorkIcon /> },
-      { name: "Social", icon: <SocialIcon /> },
-      { name: "Personal", icon: <PersonalIcon /> },
-      { name: "Education", icon: <EducationIcon /> },
-    ];
-  
-    const relations = [
-      "Colleague",
-      "Boss",
-      "Manager",
-      "CEO",
-      "Client",
-      "Partner",
-      "Mentor",
-      "Employee",
-      "Mentee",
-      "Intern",
-    ];
-  
+  const categories = [
+    { name: "Family", icon: <FamilyIcon /> },
+    { name: "Work", icon: <WorkIcon /> },
+    { name: "Social", icon: <SocialIcon /> },
+    { name: "Personal", icon: <PersonalIcon /> },
+    { name: "Education", icon: <EducationIcon /> },
+  ];
+
+  const relations = [
+    "Colleague",
+    "Boss",
+    "Manager",
+    "CEO",
+    "Client",
+    "Partner",
+    "Mentor",
+    "Employee",
+    "Mentee",
+    "Intern",
+  ];
 
   return (
     <Box
@@ -791,52 +499,222 @@ const Home = () => {
         display: "flex",
         height: "100vh",
         overflow: "hidden",
-        backgroundColor: "#f7fbd7",
-        // background: "linear-gradient(230deg, #cde49fff 0%, #d6e8c4 100%)",
-        position: "relative", // Ensure relative positioning for MenuSidebar
+        background: "linear-gradient(230deg, #99b562ff 0%, #d6e8c4 100%)",
+        position: "relative",
       }}
     >
+      {/* Left fixed mini sidebar */}
       <MiniSidebar onMenuClick={handleMenuToggle} />
-      {/* 1. Collapsible Menu Sidebar (Opens on top of the Sidebar) */}
-      <MenuSidebar
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-      />
 
-      {/* 2. Main Contacts Sidebar */}
+      {/* Collapsible menu sidebar */}
+      <MenuSidebar isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+
+      {/* Main contact list sidebar */}
       <Sidebar onMenuClick={handleMenuToggle} />
 
-      {/* 3. Connection Diagram */}
+      {/* 🟩 Register Relationship Page (Right Side Form) */}
       <Box
         sx={{
           flex: 1,
+          p: 4, // Added padding for better spacing
+          backgroundColor: "#f7fbd7",
+          height: "100vh",
+          overflowY: "auto",
+          borderLeft: "2px solid #a3c27d",
           display: "flex",
-          alignItems: "center",
           justifyContent: "center",
-          color: "#333",
-          fontSize: "20px",
-          fontWeight: 600,
         }}
       >
-        <Box
-  component="img"
-  src={logo1}
-  alt="Baatology Logo"
-  sx={{
-    position: "absolute",
-    top: -20,
-    right: -10,
-    width: 150,
-    height: 150,
-    borderRadius: "12px",
-    // boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-    cursor: "pointer",
-    transition: "transform 0.3s ease",
-    "&:hover": { transform: "scale(1.1)" },
-  }}
-/>
-        <ConnectionDiagram />
-        
+        <Box sx={{ width: "100%", maxWidth: 650, textAlign: "center" }}> {/* Increased max width for 2-column layout */}
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", color: "#466e6b", mb: 4 }}
+          >
+            Register Relationship
+          </Typography>
+
+          {/* New Grid Layout for Avatar/Photo (Left) and Input Fields (Right) */}
+          <Grid container spacing={3} sx={{ mb: 4 }}>
+            {/* Left Column: Avatar and Take Photo */}
+            <Grid item xs={12} sm={4}> 
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  height: "100%",
+                  justifyContent: "flex-start", // Align items to the top
+                  pt: 2, // Small top padding for alignment with the top input field
+                }}
+              >
+                <Avatar
+                  sx={{
+                    width: 90,
+                    height: 90,
+                    mb: 1,
+                    bgcolor: "#e9f3c4",
+                  }}
+                />
+                <Button
+                  variant="outlined"
+                  sx={{
+                    mb: 3,
+                    textTransform: "none",
+                    borderColor: "#99b562",
+                    color: "#466e6b",
+                    "&:hover": {
+                      borderColor: "#729d39",
+                      backgroundColor: "#e9f3c4",
+                    },
+                  }}
+                >
+                  Take Photo
+                </Button>
+              </Box>
+            </Grid>
+
+            {/* Right Column: Input Fields */}
+            <Grid item xs={12} sm={8} >
+              <Stack spacing={2}>
+              {[
+                { label: "Full Name", placeholder: "Enter full name" },
+                { label: "Phone Number", placeholder: "Enter number" },
+                { label: "Email Address", placeholder: "Enter email" },
+                { label: "Aadhar Number", placeholder: "1234-1234-1234" },
+              ].map((field, index) => (
+                <TextField
+                  key={index}
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  label={field.label}
+                  placeholder={field.placeholder}
+                  sx={{
+                    borderRadius: "20px",
+                    "& .MuiOutlinedInput-root": {
+                      backgroundColor: "#e9f3c4",
+                      borderRadius: "20px",
+                      "& fieldset": { border: "none" },
+                    },
+                  }}
+                />
+              ))}
+              </Stack>
+            </Grid>
+          </Grid>
+          
+          <Divider sx={{mb: 4}}/> {/* Added Divider for separation */}
+
+          {/* Category Section */}
+          <Typography
+            sx={{
+              textAlign: "left",
+              mt: 1,
+              mb: 1,
+              fontWeight: "bold",
+              color: "#466e6b",
+            }}
+          >
+            Category *
+          </Typography>
+
+          <Grid container spacing={1} justifyContent="flex-start"> {/* Adjusted justification */}
+            {categories.map((cat) => (
+              <Grid item xs={4} sm={2.4} key={cat.name}> {/* Adjusted Grid item for better button fit */}
+                <Button
+                  onClick={() => setSelectedCategory(cat.name)}
+                  variant="contained"
+                  startIcon={cat.icon}
+                  sx={{
+                    width: "100%",
+                    backgroundColor:
+                      selectedCategory === cat.name ? "#a3c27d" : "#e9f3c4",
+                    color: "#333",
+                    textTransform: "none",
+                    borderRadius: "12px",
+                    "&:hover": { backgroundColor: "#cce3a1" },
+                  }}
+                >
+                  {cat.name}
+                </Button>
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* Relationship Section */}
+          <Typography
+            sx={{
+              textAlign: "left",
+              mt: 4,
+              mb: 1,
+              fontWeight: "bold",
+              color: "#466e6b",
+            }}
+          >
+            Relationship
+          </Typography>
+
+          <Stack
+            direction="row"
+            flexWrap="wrap"
+            justifyContent="flex-start" // Adjusted justification
+            spacing={1}
+            useFlexGap
+          >
+            {relations.map((rel) => (
+              <Button
+                key={rel}
+                onClick={() => setSelectedRelation(rel)}
+                variant="contained"
+                sx={{
+                  backgroundColor:
+                    selectedRelation === rel ? "#a3c27d" : "#e9f3c4",
+                  color: "#333",
+                  textTransform: "none",
+                  borderRadius: "20px",
+                  "&:hover": { backgroundColor: "#cce3a1" },
+                }}
+              >
+                {rel}
+              </Button>
+            ))}
+          </Stack>
+
+          {/* Save Button */}
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{
+              mt: 4, // Increased top margin
+              mb: 4, // Added bottom margin
+              backgroundColor: "#a3c27d",
+              color: "#333",
+              textTransform: "none",
+              fontWeight: "bold",
+              borderRadius: "20px",
+              "&:hover": { backgroundColor: "#99b562" },
+            }}
+          >
+            Save Relationship
+          </Button>
+            <Box
+            component="img"
+            src={logo1}
+            alt="Baatology Logo"
+            sx={{
+              position: "absolute",
+              top: -20,
+              right: -10,
+              width: 150,
+              height: 150,
+              borderRadius: "12px",
+              // boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+              cursor: "pointer",
+              transition: "transform 0.3s ease",
+              "&:hover": { transform: "scale(1.1)" },
+            }}
+          />
+        </Box>
       </Box>
     </Box>
   );
