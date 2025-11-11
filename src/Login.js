@@ -179,7 +179,7 @@ const Login = () => {
             "&:hover": { backgroundColor: "#395a58" },
             mb: 2,
           }}
-          onClick={() => alert("Login Successful!")}
+          onClick={() => navigate("/home")}
         >
           Login
         </Button>
